@@ -1,10 +1,12 @@
-package com.deeshant.todonotesapp
+package com.deeshant.todonotesapp.views
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.deeshant.todonotesapp.R
+import com.deeshant.todonotesapp.utils.PrefConstants
 
 class SplashActivity : AppCompatActivity(){
 
@@ -20,10 +22,10 @@ class SplashActivity : AppCompatActivity(){
     private fun checkLoginStatus() {
         val isLoogedIn = sharedpreferences.getBoolean(PrefConstants.IS_LOGGED_IN,false)
         if(isLoogedIn){
-            val intent = Intent(this@SplashActivity,LoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, MyNotesActivity::class.java)
             startActivity(intent)
         }else{
-            val intent = Intent(this@SplashActivity,LoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
         }
     }
