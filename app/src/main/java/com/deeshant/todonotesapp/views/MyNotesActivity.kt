@@ -50,7 +50,7 @@ class MyNotesActivity: AppCompatActivity()  {
     }
 
     private fun setUpToolBartext() {
-        supportActionBar?.title = Html.fromHtml("<font color='#F29035'>"+fullName+"</font>")
+        supportActionBar?.title = Html.fromHtml("<font color='#F29035'>My Notes</font>")
     }
 
     private fun gatDatafromDatabase() {
@@ -108,7 +108,9 @@ class MyNotesActivity: AppCompatActivity()  {
             }
 
             override fun checkClick(notes: Notes) {
-
+                val notesApp = applicationContext as NotesApp
+                val notesDao =notesApp.getNotesDb().notesDao()
+                notesDao.update(notes)
             }
 
         }

@@ -25,20 +25,23 @@ class NotesAdapter(val list:List<Notes>, val itemClickListener: ItemClickListene
     }
 
     override fun onBindViewHolder(holder: NotesAdapter.ViewHolder, position: Int) {
+
         val notes = list[position]
         val title = notes.title
         val desc = notes.Description
         holder.title.text = title
         holder.desc.text = desc
+        holder.checkNotes.isChecked = notes.isTaskCompleted
+
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
                 itemClickListener.click(notes)
             }
-
         })
 
         holder.checkNotes.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                notes.isTaskCompleted = p1;
                 itemClickListener.checkClick(notes)
             }
 

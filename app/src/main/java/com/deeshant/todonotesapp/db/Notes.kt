@@ -19,5 +19,5 @@ data class Notes(
         val imagePath:String = "",
 
         @ColumnInfo(name = "isTaskCompleted")
-        val isTaskCompleted:Boolean = false
+        var isTaskCompleted:Boolean = false
 )
