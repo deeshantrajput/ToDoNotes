@@ -13,10 +13,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.deeshant.todonotesapp.NotesApp
 import com.deeshant.todonotesapp.R
 import com.deeshant.todonotesapp.adapter.NotesAdapter
 import com.deeshant.todonotesapp.clicklisteners.ItemClickListener
-import com.deeshant.todonotesapp.model.Notes
+import com.deeshant.todonotesapp.db.Notes
 import com.deeshant.todonotesapp.utils.AppConstants
 import com.deeshant.todonotesapp.utils.PrefConstants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,11 +36,20 @@ class MyNotesActivity: AppCompatActivity()  {
         bindView()
         setUpSharedPrefrences()
         getIntentData()
+
+        gatDatafromDatabase()
         supportActionBar?.title = fullName
 
         fabAddNotes.setOnClickListener {
             setUpDialogBox()
         }
+    }
+
+    private fun gatDatafromDatabase() {
+        val notesApp = applicationContext as NotesApp
+        val notesDao = notesApp.getNotesDb().notesDao()
+
+
     }
 
     private fun setUpDialogBox() {
@@ -59,8 +69,9 @@ class MyNotesActivity: AppCompatActivity()  {
                 val title = etTitle.text.toString()
                 val desc = etDesc.text.toString()
                 if(title.isNotEmpty() && desc.isNotEmpty()){
-                    val notes= Notes(title,desc)
+                    val notes= Notes(title=title, Description = desc)
                     notesArrayList.add(notes)
+                    addNotesToDB(notes)
                     setUpRecyclerView()
 
                 } else {
@@ -73,14 +84,24 @@ class MyNotesActivity: AppCompatActivity()  {
         )
     }
 
+    private fun addNotesToDB(notes: Notes) {
+        val notesApp = applicationContext as NotesApp
+        val notesDao =notesApp.getNotesDb().notesDao()
+        notesDao.insert(notes)
+    }
+
     private fun setUpRecyclerView(){
 
         val itemClickListener = object : ItemClickListener{
             override fun click(notes: Notes) {
                 val intent = Intent(this@MyNotesActivity, DetailsActivity::class.java)
                 intent.putExtra(AppConstants.TITLE,notes.title)
-                intent.putExtra(AppConstants.DEESCRIPTION,notes.desc)
+                intent.putExtra(AppConstants.DEESCRIPTION,notes.Description)
                 startActivity(intent)
+            }
+
+            override fun checkClick(notes: Notes) {
+
             }
 
         }
