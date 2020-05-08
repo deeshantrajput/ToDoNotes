@@ -2,5 +2,6 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#F29035</color>
+    <color name="colorAccent">#FF0000</color>
+    <color name="cardColor">#fff740</color>
 </resources>

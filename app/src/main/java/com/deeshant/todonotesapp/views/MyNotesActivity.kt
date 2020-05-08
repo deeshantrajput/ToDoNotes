@@ -50,7 +50,7 @@ class MyNotesActivity: AppCompatActivity()  {
     }
 
     private fun setUpToolBartext() {
-        supportActionBar?.title = Html.fromHtml("<font color='#F29035'>My Notes</font>")
+        supportActionBar?.title = Html.fromHtml("<font color='#FFFFFF'>My Notes</font>")
     }
 
     private fun gatDatafromDatabase() {
