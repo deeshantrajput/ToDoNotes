@@ -2,43 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:padding="8dp"
     android:background="@color/cardColor"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:id="@+id/imagePin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ppin"
+        android:layout_height="40dp"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/dbImage"
+        app:layout_constraintTop_toBottomOf="@+id/imagePin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="150dp"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Notes"
-        android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
         android:id="@+id/tvAddNotes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+       app:layout_constraintTop_toBottomOf="@+id/dbImage"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutTitle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:hintTextColor="@color/colorPrimary"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:hint="Title"
-        android:textColorHint="@color/colorPrimary"
+        android:textColorHint="@android:color/black"
         app:layout_constraintTop_toBottomOf="@+id/tvAddNotes">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextTitle"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,17 +70,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        app:boxStrokeColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary"
+        app:boxStrokeColor="@android:color/black"
+        android:textColorHint="@android:color/black"
         android:hint="Description"
-        app:hintTextColor="@color/colorPrimary"
+        app:hintTextColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle"
         app:layout_constraintStart_toStartOf="@+id/textInputLayoutTitle"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextDesc"
-            android:textColor="@color/colorAccent"
+            android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,13 +90,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:textColor="@android:color/white"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayoutDesc"
         app:layout_constraintStart_toStartOf="@+id/textInputLayoutDesc"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDesc" />
+       app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.deeshant.todonotesapp.views
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.deeshant.todonotesapp.NotesApp
@@ -22,6 +25,7 @@ import com.deeshant.todonotesapp.db.Notes
 import com.deeshant.todonotesapp.utils.AppConstants
 import com.deeshant.todonotesapp.utils.PrefConstants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.jar.Manifest
 
 class MyNotesActivity: AppCompatActivity()  {
 
@@ -30,6 +34,8 @@ class MyNotesActivity: AppCompatActivity()  {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var recyclerView: RecyclerView
     var notesArrayList = ArrayList<Notes>()
+    val ADD_NOTES_CODE = 100
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +55,13 @@ class MyNotesActivity: AppCompatActivity()  {
         }
     }
 
+
+
     private fun setUpToolBartext() {
-        supportActionBar?.title = Html.fromHtml("<font color='#FFFFFF'>My Notes</font>")
+        supportActionBar?.title = Html.fromHtml("<font color='#fff740'>My Notes</font>")
     }
+
+
 
     private fun gatDatafromDatabase() {
         val notesApp = applicationContext as NotesApp
@@ -60,42 +70,12 @@ class MyNotesActivity: AppCompatActivity()  {
     }
 
     private fun setUpDialogBox() {
-        val view: View = LayoutInflater.from(this@MyNotesActivity).inflate(R.layout.add_notes_dialog_layout,null)
-        val etTitle = view.findViewById<EditText>(R.id.editTextTitle)
-        val etDesc = view.findViewById<EditText>(R.id.editTextDesc)
-        val btSubmit = view.findViewById<Button>(R.id.btSubmit)
+        val intent = Intent(this@MyNotesActivity, AddNotesActivity::class.java)
+        startActivityForResult(intent,ADD_NOTES_CODE)
 
-        val dialog = AlertDialog.Builder(this)
-                .setView(view)
-                .setCancelable(false)
-                .create()
-        dialog.show()
-
-        btSubmit.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                val title = etTitle.text.toString()
-                val desc = etDesc.text.toString()
-                if(title.isNotEmpty() && desc.isNotEmpty()){
-                    val notes= Notes(title=title, Description = desc)
-                    notesArrayList.add(notes)
-                    addNotesToDB(notes)
-                    setUpRecyclerView()
-
-                } else {
-                    Toast.makeText(this@MyNotesActivity, "Title or Description can't be empty", Toast.LENGTH_SHORT).show()
-                }
-                dialog.dismiss()
-            }
-
-        }
-        )
     }
 
-    private fun addNotesToDB(notes: Notes) {
-        val notesApp = applicationContext as NotesApp
-        val notesDao =notesApp.getNotesDb().notesDao()
-        notesDao.insert(notes)
-    }
+
 
     private fun setUpRecyclerView(){
 
